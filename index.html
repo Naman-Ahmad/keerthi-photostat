@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keerthi Photostat - NIT Calicut</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">K</div>
+                    <span class="logo-text">Keerthi Photostat</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+
+                <!-- Auth Buttons -->
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-ghost" onclick="showLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="showRegisterModal()">Sign Up</button>
+                </div>
+
+                <!-- User Menu (Hidden by default) -->
+                <div class="user-menu hidden" id="userMenu">
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <span id="userInitial">U</span>
+                    </div>
+                    <div class="user-dropdown hidden" id="userDropdown">
+                        <div class="user-info">
+                            <p class="user-name" id="userName">User Name</p>
+                            <p class="user-email" id="userEmail">user@nitc.ac.in</p>
+                        </div>
+                        <hr>
+                        <a href="#dashboard" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a href="#orders" class="dropdown-item">
+                            <i class="fas fa-shopping-cart"></i> My Orders
+                        </a>
+                        <hr>
+                        <button class="dropdown-item" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Sign out
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars" id="mobileMenuIcon"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile hidden" id="navMobile">
+                <a href="#home" class="nav-link-mobile">Home</a>
+                <a href="#services" class="nav-link-mobile">Services</a>
+                <a href="#about" class="nav-link-mobile">About</a>
+                <a href="#contact" class="nav-link-mobile">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Keerthi Photostat</h1>
+                    <p class="hero-subtitle">Skip the queue — order your prints in advance!</p>
+                    <p class="hero-description">Your trusted photocopy and stationery partner at NIT Calicut</p>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-large" onclick="scrollToServices()">Order Now</button>
+                        <button class="btn btn-outline btn-large" onclick="showLoginModal()">Login to Dashboard</button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Orders Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Online Ordering</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15min</div>
+                            <div class="stat-label">Average Wait Time</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Satisfaction Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                
+                <!-- Service Categories -->
+                <div class="service-tabs">
+                    <button class="tab-btn active" onclick="showServiceCategory('xerox')">
+                        <i class="fas fa-print"></i> Xerox & Printing
+                    </button>
+                    <button class="tab-btn" onclick="showServiceCategory('lamination')">
+                        <i class="fas fa-file-alt"></i> Lamination
+                    </button>
+                    <button class="tab-btn" onclick="showServiceCategory('binding')">
+                        <i class="fas fa-book"></i> Binding
+                    </button>
+                    <button class="tab-btn" onclick="showServiceCategory('stationery')">
+                        <i class="fas fa-pen"></i> Stationery
+                    </button>
+                    <button class="tab-btn" onclick="showServiceCategory('snacks')">
+                        <i class="fas fa-candy-cane"></i> Snacks
+                    </button>
+                </div>
+
+                <!-- Service Items -->
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Services will be populated by JavaScript -->
+                </div>
+
+                <!-- Shopping Cart Sidebar -->
+                <div class="cart-sidebar" id="cartSidebar">
+                    <div class="cart-header">
+                        <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                        <span class="cart-count" id="cartCount">0 items</span>
+                    </div>
+                    <div class="cart-items" id="cartItems">
+                        <p class="empty-cart">Your cart is empty</p>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="cart-total">
+                            <span>Total: ₹<span id="cartTotal">0.00</span></span>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="proceedToCheckout()" disabled id="checkoutBtn">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h3>1. Select Services</h3>
+                        <p>Choose from xerox, binding, stationery, or snacks</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>2. Schedule Pickup</h3>
+                        <p>Choose a convenient time slot for collection</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>3. Pay Online</h3>
+                        <p>Secure payment through Stripe or UPI</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>4. Collect Order</h3>
+                        <p>Skip the queue and collect your order</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Skip the Queue?</h2>
+                    <p>Join hundreds of NIT Calicut students who save time with our online ordering system.</p>
+                    <button class="btn btn-primary btn-large" onclick="scrollToServices()">Start Your Order</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">K</div>
+                        <span class="logo-text">Keerthi Photostat</span>
+                    </div>
+                    <p>Your trusted photocopy and stationery partner at NIT Calicut</p>
+                    <div class="developer-credit">
+                        <i class="fas fa-heart"></i>
+                        <span>Developed with ❤️ by Naman</span>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li>Xerox & Printing</li>
+                        <li>Binding & Lamination</li>
+                        <li>Stationery Items</li>
+                        <li>Snacks & Drinks</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Inside NIT Calicut Campus<br>Kozhikode, Kerala 673601</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91-9876543210</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>keerthi@nitc.ac.in</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Mon-Sat: 9:00 AM - 6:00 PM<br>Sunday: Closed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Keerthi Photostat, NIT Calicut – Developed with ❤️ by Naman</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal-overlay hidden" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Welcome Back</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Sign in to your Keerthi Photostat account</p>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">NIT Calicut Email</label>
+                        <input type="email" id="loginEmail" placeholder="your.name@nitc.ac.in" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                </form>
+                <div class="modal-footer">
+                    <a href="#" class="forgot-password">Forgot your password?</a>
+                    <p>Don't have an account? <a href="#" onclick="switchToRegister()">Sign up here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay hidden" id="registerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="modal-close" onclick="closeModal('registerModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Join Keerthi Photostat with your NIT Calicut email</p>
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">NIT Calicut Email</label>
+                        <input type="email" id="registerEmail" placeholder="your.name@nitc.ac.in" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Phone Number</label>
+                        <input type="tel" id="registerPhone" placeholder="+91-9876543210" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="registerPassword" placeholder="Create a password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                </form>
+                <div class="modal-footer">
+                    <p>Already have an account? <a href="#" onclick="switchToLogin()">Sign in here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay hidden" id="checkoutModal">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="modal-close" onclick="closeModal('checkoutModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Checkout steps will be populated by JavaScript -->
+                <div id="checkoutContent">
+                    <!-- Content will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
